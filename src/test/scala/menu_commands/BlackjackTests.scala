@@ -1,4 +1,4 @@
-package menu_commands
+package Blackjack_commands
 
 import org.scalatest.FunSpec
 import org.scalatest.Matchers
@@ -13,7 +13,7 @@ class Menu_Test extends FunSpec with Matchers {
       it("can show the game area, including the 19 x 4 board, player scores") {
 
         val expectedResult =
-            "Board:\n" +
+            "Game Area:\n" +
             "                           Dealer                        \n" +
             "                        [ ][ ][ ][ ]                     \n" +
             "                                                         \n" +

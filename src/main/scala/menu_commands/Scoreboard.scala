@@ -1,4 +1,4 @@
-package BlackJack_Commands
+package Blackjack_Commands
 
 object Scoreboard {
   var Chuck = 0
