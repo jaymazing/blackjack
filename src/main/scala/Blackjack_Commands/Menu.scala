@@ -1,6 +1,5 @@
-package Blackjack_commands
+package Blackjack_Commands
 
-import PlayerOrder._
 
 object Menu {
 

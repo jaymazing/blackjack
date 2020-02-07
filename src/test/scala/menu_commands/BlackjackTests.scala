@@ -1,4 +1,4 @@
-package Blackjack_commands
+package Blackjack_Commands
 
 import org.scalatest.FunSpec
 import org.scalatest.Matchers
