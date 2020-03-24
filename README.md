@@ -4,7 +4,7 @@ For my project I will simulate the card game black jack. The game consists of 4
 players and a dealer.
 
 ## Equipment:
-The game requires a deck of 52 cards. It will be played on a 19x4 grid board.
+The game requires a deck of 52 cards. It will be played on a 20x5 grid board.
 The grid squares will be where the players and dealers cards are shown. Cards
 will be represented with letters and numbers. For example a four of spades will
 be represented by a "S4"

@@ -1,9 +1,11 @@
 package Blackjack_Commands
 
+import Deck._
+
 //******* PLAYER_ORDER *******
 object PlayerOrder extends scala.collection.mutable.Queue[Player] {
 
-  this += new Player("Chuck")
+  this += new Player("Dealer")
   this += new Player("Katie")
   this += new Player("Trevor")
   this += new Player("Claudia")
@@ -13,8 +15,8 @@ object PlayerOrder extends scala.collection.mutable.Queue[Player] {
   }
 
   def show : String = {
-    var result = ""    
-    for (p <- this.toArray) 
+    var result = ""
+    for (p <- this.toArray)
       result += p.name + ", "
     result.substring(0, result.length-2)
   }
@@ -22,4 +24,30 @@ object PlayerOrder extends scala.collection.mutable.Queue[Player] {
   def current : Player = {
     return this.head
   }
+
+  val playerList: List[Player] = {
+    PlayerOrder.toList
+  }
+
+  def resetPlayer: Unit = {
+    while (PlayerOrder.current != "Dealer") {
+      PlayerOrder.advance
+    }
+  }
+
+  def clearHands: Unit = {
+    for (i <- 0 to 3) {
+      playerList(i).cards = List.empty[String]
+      playerList(i).move = ""
+      playerList(i).games_won = 0
+    }
+  }
+  def dealCards: Unit = {
+    for (i <- 0 to 3) {
+      playerList(i).cards = playerList(i).cards :+ Deck.drawCard
+      playerList(i).cards = playerList(i).cards :+ Deck.drawCard
+    }
+  }
+
+
 }
