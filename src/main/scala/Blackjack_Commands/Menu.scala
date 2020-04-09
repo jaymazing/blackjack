@@ -21,6 +21,7 @@ object Menu {
 
   def initialize: String = {
     Deck.newDeck
+    PlayerOrder.resetPlayer
     PlayerOrder.clearHands
     PlayerOrder.dealCards
     showGameArea
@@ -32,16 +33,16 @@ object Menu {
     val kt = playerList(1).sum_cards(playerList(1).cards)
     val tr = playerList(2).sum_cards(playerList(2).cards)
     val cl = playerList(3).sum_cards(playerList(3).cards)
-    if (dlr > 21) {
-      if (kt < 22) {
+    if (playerList(0).move == "Busts") {
+      if (playerList(1).move != "Busts") {
         playerList(1).games_won +=1
         result += playerList(1).name + ", "
       }
-      if (tr < 22) {
+      if (playerList(2).move != "Busts") {
         playerList(2).games_won +=1
         result += playerList(2).name + ", "
       }
-      if (cl < 22) {
+      if (playerList(3).move != "Busts") {
         playerList(3).games_won +=1
         result += playerList(3).name + ", "
       }
@@ -74,49 +75,56 @@ object Menu {
     else result.substring(0, result.length-2)
   }
 
-  def doMove(pl: Player): Int = {
+  def doMove(pl: Player): String = {
     if (pl.move != "Busts" || pl.move != "Stands") {
       val cur = pl.sum_cards(pl.cards)
       if (cur > 21) {
         pl.available_move = false
         pl.move = "Busts"
-        1
       }
       else if (cur < 16) {
         pl.cards = pl.cards :+ Deck.drawCard
         pl.move = "Hit"
-        0
       }
       else {
         pl.move = "Stands"
         pl.available_move = false
-        1
       }
+      showGameArea
     }
-    else 0
+    else showGameArea
   }
   def doTurn: String = {
+    Deck.newDeck
+    PlayerOrder.resetPlayer
+    PlayerOrder.clearHands
+    PlayerOrder.dealCards
     var available = 0
     while (available < 4) {
+      available = 0
       for (i <- 0 to 3) {
-        available += doMove(playerList(i))
+        if (playerList(i).move == "Busts" || playerList(i).move == "Stands") {
+          available += 1
+        }
+        else doMove(playerList(i))
       }
     }
+    checkForWinner
     showGameArea
   }
 
-  def doGame: Unit = {
+  def doGame: String = {
+    var result = ""
     for (i <- 1 to 10) {
-      doTurn
+      result += doTurn
+      result += " \n"
     }
+    result
   }
-  def setStrategy(pl: String, strategy: String): Unit = pl match {
-      case "Dealer" => PlayerOrder.playerList(0).strategy = strategy
-      case "Katie" => PlayerOrder.playerList(1).strategy = strategy
-      case "Trevor" => PlayerOrder.playerList(2).strategy = strategy
-      case "Claudia" => PlayerOrder.playerList(3).strategy = strategy
+  def setStrategy(pl: Player, strategy: String): Unit = {
+      pl.strategy = strategy
   }
-  def doStrategyMove(up: Player): Int = {
+  def doStrategyMove(up: Player): String = {
     Strategies.setup(up, up.strategy)
   }
 
@@ -126,6 +134,17 @@ object Menu {
       result += playerList(i).name + ": " + playerList(i).strategy + "\n"
     }
     result
+  }
+
+  def randomness: String = {
+    if (Deck.random == false) {
+      Deck.random = true
+      "Deck is now random"
+    }
+    else {
+      Deck.random = false
+      "Deck is not random now"
+    }
   }
 
 }

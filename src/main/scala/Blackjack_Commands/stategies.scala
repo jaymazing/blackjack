@@ -5,14 +5,13 @@ import PlayerOrder._
 
 object Strategies {
 
-  def setup(pl: Player, strategy: String): Int = {
+  def setup(pl: Player, strategy: String): String = {
     if (strategy == "passive"){
       if (pl.move != "Stands") {
         pl.move = "Stands"
         pl.available_move = false
-        1
       }
-      else 0
+      Menu.showGameArea
     }
     if (strategy == "aggressive"){
       if (pl.move != "Busts") {
@@ -20,15 +19,14 @@ object Strategies {
         if (cur > 21) {
           pl.available_move = false
           pl.move = "Busts"
-          1
         }
         else {
           pl.cards = pl.cards :+ Deck.drawCard
           pl.move = "Hit"
-          0
         }
+        Menu.showGameArea
       }
-      else 0
+      else Menu.showGameArea
     }
     if (strategy == "safe"){
       if (pl.move != "Busts" || pl.move != "Stands") {
@@ -36,20 +34,18 @@ object Strategies {
         if (cur > 21) {
           pl.available_move = false
           pl.move = "Busts"
-          1
         }
         else if (cur < 13) {
           pl.cards = pl.cards :+ Deck.drawCard
           pl.move = "Hit"
-          0
         }
         else {
           pl.move = "Stands"
           pl.available_move = false
-          1
         }
+        Menu.showGameArea
       }
-      else 0
+      else Menu.showGameArea
     }
     if (strategy == "moderate"){
       if (pl.move != "Busts" || pl.move != "Stands") {
@@ -57,22 +53,20 @@ object Strategies {
         if (cur > 21) {
           pl.available_move = false
           pl.move = "Busts"
-          1
         }
         else if (cur < 18) {
           pl.cards = pl.cards :+ Deck.drawCard
           pl.move = "Hit"
-          0
         }
         else {
           pl.move = "Stands"
           pl.available_move = false
-          1
         }
+        Menu.showGameArea
       }
-      else 0
+      else Menu.showGameArea
     }
-    else 0
+    else Menu.showGameArea
   }
 
 }

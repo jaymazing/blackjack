@@ -8,8 +8,10 @@ object Deck {
 	var deck2 = List("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", "1", "2", "3", "4",
 					"5", "6", "7", "8", "9", "10", "10", "10", "10", "1", "2", "3", "5", "6", "7", "8", "9",
 					"10", "10", "10", "10", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10")
+	var random = false
 
 	def drawCard: String = {
+		if (random == true) deck = scala.util.Random.shuffle(deck)
 		val drawnCard = deck.head
 		deck = deck.tail :+ drawnCard
 		drawnCard

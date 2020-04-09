@@ -30,7 +30,7 @@ object PlayerOrder extends scala.collection.mutable.Queue[Player] {
   }
 
   def resetPlayer: Unit = {
-    while (PlayerOrder.current != "Dealer") {
+    while (PlayerOrder.current != playerList(0)) {
       PlayerOrder.advance
     }
   }

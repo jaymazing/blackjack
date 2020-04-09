@@ -251,8 +251,9 @@ class Menu_Test extends FunSpec with Matchers {
           "Claudia cards: " + "7, 8, 10" + "\n" +
           "Move: " + "Busts" + "\n" +
           "Games won: " + "0" + "\n"
+        //println(PlayerOrder.playerList(0).name)
         Menu.checkForWinner should be ("Katie, Trevor")
-        Menu.showGameArea should be(expectedResult)
+        Menu.doTurn should be(expectedResult)
 
       }
 
@@ -267,16 +268,15 @@ class Menu_Test extends FunSpec with Matchers {
       //******* checkForWinner *******
       it("CHecks for a winner") {
         Menu.initialize
-        assert(Menu.checkForWinner == "Claudia")
         Menu.doTurn
         Menu.checkForWinner should be ("Katie, Trevor")
      }
      //******* SET STRATEGY *******
       it("can change the strategy of any player") {
-        Menu.setStrategy("Dealer", "passive")
-        Menu.setStrategy("Katie", "aggressive")
-        Menu.setStrategy("Trevor", "safe")
-        Menu.setStrategy("Claudia", "moderate")
+        Menu.setStrategy(PlayerOrder.playerList(0), "passive")
+        Menu.setStrategy(PlayerOrder.playerList(1), "aggressive")
+        Menu.setStrategy(PlayerOrder.playerList(2), "safe")
+        Menu.setStrategy(PlayerOrder.playerList(3), "moderate")
         val expectedResult = {(
             "Dealer: passive\n" +
             "Katie: aggressive\n" +
